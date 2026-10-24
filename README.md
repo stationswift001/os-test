@@ -6,7 +6,7 @@ After using a local development build, switch back to the image published by
 this repository:
 
 ```bash
-sudo bootc switch --transport registry ghcr.io/justinschwerdtfeger/justin-bazzite-dx:latest
+sudo bootc switch --transport registry ghcr.io/stationswift001/os-test
 ```
 
 Reboot when ready, then check `sudo bootc status` to confirm the booted image.
