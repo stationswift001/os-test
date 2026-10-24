@@ -19,8 +19,11 @@ dnf5 -y copr enable anudeepd/equibop
 dnf5 -y install equibop
 dnf5 -y copr disable anudeepd/equibop
 
-# install Telegram desktop
+# install Telegram desktop (claude's work)
+dnf5 -y install \
+  https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
 dnf5 -y install telegram-desktop
+dnf5 -y remove rpmfusion-free-release
 
 #install Bitwarden from copr repo
 dnf5 -y copr enable anudeepd/bitwarden
