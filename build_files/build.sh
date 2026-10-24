@@ -4,19 +4,39 @@ set -ouex pipefail
 
 ### Install packages
 
-# Install Firefox in the OS image.
-dnf5 -y install firefox
-rpm -q firefox
-
-dnf5 -y install wireshark
+# Install Librewolf in the OS image.
+dnf5 -y config-manager addrepo --from-repofile=https://repo.librewolf.net/librewolf.repo
+dnf5 -y install librewolf
 
 # Packages can be installed from any enabled yum repo on the image.
 # RPMfusion repos are available by default in ublue main images
 # List of rpmfusion packages can be found here:
 # https://mirrors.rpmfusion.org/mirrorlist?path=free/fedora/updates/39/x86_64/repoview/index.html&protocol=https&redirect=1
 
-# IOTOP for io monitoring
-dnf5 -y install iotop
+
+# install Discord client of choice
+dnf5 -y copr enable anudeepd/equibop
+dnf5 -y install equibop
+dnf5 -y copr disable anudeepd/equibop
+
+# install Telegram desktop
+dnf5 -y install telegram-desktop
+
+#install Bitwarden from copr repo
+dnf5 -y copr enable anudeepd/bitwarden
+dnf5 -y install bitwarden
+dnf5 -y copr disable anudeepd/bitwarden
+
+#install Syncthing
+dnf5 -y install syncthing
+
+#install VLC
+dnf5 -y install vlc
+
+#install
+dnf5 -y copr enable pgdev/zed
+dnf5 -y install zed
+dnf5 -y copr disable pgdev/zed
 
 # Dank Material Shell and all optional dependencies:
 # https://danklinux.com/docs/dankmaterialshell/installation
@@ -25,27 +45,27 @@ dnf5 -y copr enable avengemedia/dms
 dnf5 -y copr enable avengemedia/danklinux
 dnf5 -y config-manager setopt terra.enabled=0
 dnf5 -y --refresh install \
+  quickshell \
   cava \
-  dankcalendar-git \
+  dankcalendar \
   dgop \
-  danksearch \
+  dsearch \
   matugen \
-  wl-mirror \
   qt6-qtmultimedia
 # Niri is installed below from yalter/niri.
 # Refresh cached metadata and update DMS even if the base already includes it.
 dnf5 -y --refresh install dms
 dnf5 -y --refresh upgrade dms
-rpm -q dms cava dankcalendar-git dgop danksearch matugen qt6-qtmultimedia
+rpm -q dms cava dankcalendar dgop dsearch matugen qt6-qtmultimedia
 dnf5 -y copr disable avengemedia/dms
 dnf5 -y copr disable avengemedia/danklinux
 
 # Install Noctalia Shell
-dnf5 -y config-manager setopt terra.enabled=1
+#dnf5 -y config-manager setopt terra.enabled=1
 # dnf5 -y install noctalia-legacy
-dnf5 -y install noctalia
-dnf5 -y install cliphist # For clipboard History
-dnf5 -y config-manager setopt terra.enabled=0
+#dnf5 -y install noctalia
+#dnf5 -y install cliphist # For clipboard History
+#dnf5 -y config-manager setopt terra.enabled=0
 
 dnf5 -y copr enable daniel-g-carrasco/wayland-scroll-factor
 dnf5 -y install wayland-scroll-factor
@@ -55,22 +75,6 @@ dnf5 -y copr disable daniel-g-carrasco/wayland-scroll-factor
 dnf5 -y config-manager setopt terra.enabled=1
 dnf5 -y install cursor
 dnf5 -y config-manager setopt terra.enabled=0
-
-# Install haskell dependencies
-dnf5 -y install gcc gcc-c++ gmp gmp-devel make ncurses ncurses-compat-libs xz perl
-
-# Install wlsunset for Night light
-dnf5 -y install wlsunset
-
-# Install lazygit dependencies
-dnf5 -y install ripgrep
-dnf5 -y install fd-find
-dnf5 -y install tree-sitter-cli
-dnf5 -y install neovim python3-neovim
-
-# Install pipx for brotab (tab search)
-dnf5 -y install pipx
-dnf5 -y install python3-devel
 
 # Install Vicinae from Copr
 dnf5 -y copr enable quadratech188/vicinae
@@ -95,15 +99,6 @@ dnf5 -y install brightnessctl
 # dnf5 -y install swaybg
 # dnf5 -y install swayidle
 
-# Install Google Chrome
-dnf5 config-manager addrepo --id="google-chrome" \
-  --set=name="Google Chrome" \
-  --set=baseurl="https://dl.google.com/linux/chrome/rpm/stable/x86_64" \
-  --set=gpgkey="https://dl.google.com/linux/linux_signing_key.pub" \
-  --set=gpgcheck=1
-dnf5 makecache
-dnf5 -y install google-chrome-stable
-dnf5 config-manager setopt google-chrome.enabled=0
 
 
 # Global Protect Open Connect for UTD-VPN
@@ -111,21 +106,7 @@ dnf5 -y copr enable yuezk/globalprotect-openconnect
 dnf5 -y install globalprotect-openconnect
 dnf5 -y copr disable yuezk/globalprotect-openconnect
 
-# Install Tauri Dependencies
-dnf5 -y install webkit2gtk4.1-devel \
-  openssl-devel \
-  curl \
-  wget \
-  file \
-  libappindicator-gtk3-devel \
-  librsvg2-devel \
-  libxdo-devel
-dnf5 -y group install "c-development"
-
-dnf5 -y copr enable dejan/lazygit
-dnf5 -y install lazygit
-dnf5 -y copr disable dejan/lazygit
-
 #### Example for enabling a System Unit File
 
 systemctl enable podman.socket
+systemctl enable keyd
