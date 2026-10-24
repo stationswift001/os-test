@@ -19,11 +19,6 @@ dnf5 -y copr enable anudeepd/equibop
 dnf5 -y install equibop
 dnf5 -y copr disable anudeepd/equibop
 
-# install Telegram desktop (claude's work)
-dnf5 -y install \
-  https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
-dnf5 -y install telegram-desktop
-dnf5 -y remove rpmfusion-free-release
 
 #install Bitwarden from copr repo
 dnf5 -y copr enable anudeepd/bitwarden
@@ -36,10 +31,6 @@ dnf5 -y install syncthing
 #install VLC
 dnf5 -y install vlc
 
-#install
-dnf5 -y copr enable pgdev/zed
-dnf5 -y install zed
-dnf5 -y copr disable pgdev/zed
 
 # Dank Material Shell and all optional dependencies:
 # https://danklinux.com/docs/dankmaterialshell/installation
