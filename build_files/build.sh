@@ -50,7 +50,7 @@ dnf5 -y --refresh install \
 # Refresh cached metadata and update DMS even if the base already includes it.
 dnf5 -y --refresh install dms
 dnf5 -y --refresh upgrade dms
-rpm -q dms cava dankcalendar dgop dsearch matugen qt6-qtmultimedia
+rpm -q dms cava dankcalendar dgop danksearch matugen qt6-qtmultimedia
 dnf5 -y copr disable avengemedia/dms
 dnf5 -y copr disable avengemedia/danklinux
 
